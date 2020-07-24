@@ -128,4 +128,5 @@ class GameFragment : Fragment() {
     // Go to the navigation.xml file and select the design tab
     // Click the add icon with the + on it to add a new destination to the graph
     // Select fragment_game to add this fragment to the graph
+
 }
