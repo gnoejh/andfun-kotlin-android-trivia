@@ -46,18 +46,33 @@ class GameWonFragment : Fragment() {
             view.findNavController().navigate(
                     GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
         }
-        var args = GameWonFragmentArgs.fromBundle(arguments!!)
+
         Toast.makeText(context,
                 "NumCorrect: ${args.numCorrect}, NumQuestions: ${args.numQuestions}",
                 Toast.LENGTH_LONG).show()
         // TODO (01) Add setHasOptionsMenu(true)
         // This allows onCreateOptionsMenu to be called
+        setHasOptionsMenu(true)
         return binding.root
     }
 
 
-    // TODO (02) Create getShareIntent method
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.winner_menu, menu)
+    }
+
+    private fun getShareIntent(): Intent {
+        var args = GameWonFragmentArgs.fromBundle(arguments!!)
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.setType("text/plain")
+                .putExtra(Intent.EXTRA_TEXT,
+                getString(R.string.share_success_text, args.numCorrect,
+                args.numQuestions))
+    }
+
     // TODO (03) Create shareSuccess method
+
     // TODO (04) Override and fill out onCreateOptionsMenu
     // Inflate the winner_menu and set the share menu item to invisible if the activity doesn't
     // resolve
